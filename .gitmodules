@@ -1,0 +1,6 @@
+[submodule "employee-manager-app"]
+	path = employee-manager-app
+	url = git@github.com:afwolfe/EmployeeManagerApp.git
+[submodule "employee-manager-backend"]
+	path = employee-manager-backend
+	url = git@github.com:afwolfe/EmployeeManagerBackend.git

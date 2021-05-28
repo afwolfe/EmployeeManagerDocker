@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  employee-manager-backend:
+    build: ./employee-manager-backend
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - maria_db
+    links:
+      - maria_db:app_db
+  maria_db:
+    image: "mariadb:10.5.9"
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: employee
+      MYSQL_USER: employeemanager
+      MYSQL_PASSWORD: employee-test
+      MYSQL_ROOT_PASSWORD: YHM4K82U4Gd49H
+  employee-manager-app:
+    container_name: employee-manager-app
+    build: ./employee-manager-app/app
+    depends_on: 
+      - employee-manager-backend
+    volumes:
+      - './employee-manager-app/app:/employee-manager-app'
+    ports:
+      - '4200:4200'
+    command: >
+      bash -c "yarn install --ignore-engines && ng serve --host 0.0.0.0 --port 4200"
